@@ -1,0 +1,108 @@
+Got it — the download link likely expired. I’ll just give you the full **working converted Designer file** here so you can copy/paste directly.
+
+---
+
+## ✅ **Form1.Designer.vb (ScottPlot version)**
+
+Replace your existing `Form1.Designer.vb` with this:
+
+```vb
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class Form1
+    Inherits System.Windows.Forms.Form
+
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+
+    'NOTE: The following procedure is required by the Windows Form Designer
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Me.FormsPlot1 = New ScottPlot.WinForms.FormsPlot()
+        Me.SuspendLayout()
+
+        '
+        'FormsPlot1
+        '
+        Me.FormsPlot1.Location = New System.Drawing.Point(12, 12)
+        Me.FormsPlot1.Name = "FormsPlot1"
+        Me.FormsPlot1.Size = New System.Drawing.Size(776, 426)
+        Me.FormsPlot1.TabIndex = 0
+
+        '
+        'Form1
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.FormsPlot1)
+        Me.Name = "Form1"
+        Me.Text = "Form1"
+        Me.ResumeLayout(False)
+
+    End Sub
+
+    Friend WithEvents FormsPlot1 As ScottPlot.WinForms.FormsPlot
+
+End Class
+```
+
+---
+
+## ⚠️ Important checklist
+
+Make sure these are done or it still won’t work:
+
+### 1. Install ScottPlot WinForms
+
+```
+Install-Package ScottPlot.WinForms
+```
+
+---
+
+### 2. Remove ALL OxyPlot references
+
+* `Imports OxyPlot`
+* `PlotView`
+* `PlotModel`
+
+---
+
+### 3. Update your Form1 code
+
+Example minimal test:
+
+```vb
+Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Dim data = ScottPlot.Generate.Sin(100)
+    FormsPlot1.Plot.Add.Signal(data)
+    FormsPlot1.Refresh()
+End Sub
+```
+
+---
+
+## If it still fails
+
+Tell me what error you get (build error or runtime), because the next likely issues are:
+
+* wrong ScottPlot version (v4 vs v5 API mismatch)
+* control name mismatch (`FormsPlot1`)
+* leftover OxyPlot code in Form1.vb
+
+---
+
+If you want, I can now:
+👉 fully convert your **Form2 plotting logic properly (not stub)** — that’s the real performance win.
